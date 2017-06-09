@@ -25,73 +25,13 @@ import {
 } from 'react-router-dom';
 // Set up firebase database
 import firebase, { auth, database, provider, dbRef } from './firebase.js';
+import HappyNote from './components/happynote.js';
 
-class HappyNote extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			currentTitle: '',
-			currentImage: '',
-			currentHappyNote: '',
-			happyNotes: []
-		};
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.uploadPhoto = this.uploadPhoto.bind(this);
-	}
-	uploadPhoto(e) {
-		let file = e.target.files[0];
-		console.log(file.name);
-	}
 
-	handleChange(e) {
-		this.setState({
-			[e.target.name]: e.target.value
-		});
-	}
-	handleSubmit(e) {
-		e.preventDefault();
-		dbRef.push({
-			title: this.state.currentTitle,
-			image: this.state.currentImage,
-			happyNote: this.state.currentHappyNote,
-			date: new Date()
-		});
-	}
-	render() {
-		return (
-			<div>
-				<h2>Write your note here</h2>
-				<form action="" onSubmit={this.handleSubmit}>
-					<input onChange={this.handleChange} name="currentTitle" value={this.state.currentTitle} type="text" placeholder="Title"/>
-					<input onChange={this.uploadPhoto} type="file" name="currentImage" accept="image/*" />
-					<textarea onChange={this.handleChange} name="currentHappyNote" value={this.state.currentHappyNote} rows="10" cols="50" placeholder="Enter your happy note here"> </textarea>
-					<input type="submit" value="Post Happy Note :D" />
-				</form>
-				<div>
-					<h1>{this.state.currentTitle}</h1>
-					<img src={this.state.currentImage} alt=""/>
-					<p>{this.state.currentHappyNote}</p>
-				</div>
-			</div>
-			
-		)
-	}
-	componentDidMount() {
-		dbRef.on('value', (snapshot) => {
-			const dbHappyNote = snapshot.val();
-			const newHappyNotes = [];
-			for (let key in dbHappyNote) {
-				newHappyNotes.push({
-					key,
-					currentTitle: '',
-					currentImage: '',
-					currentHappyNote: '',
-				})
-			}
-		})
-	}
-}
+
+// Array.from(this.state.array);
+// Object.create(this.state.object);
+// Object.assign({}, this.state.object); // merge objects together in one object
 
 class OpenNotes extends React.Component {
 	constructor() {
@@ -99,6 +39,30 @@ class OpenNotes extends React.Component {
 		this.state = {
 			happyNotes: []
 		}
+	}
+	componentDidMount() {
+		dbRef.on('value', (snapshot) => {
+			const dbHappyNote = snapshot.val();
+			const newHappyNotes = [];
+			console.log(dbHappyNote);
+			for (let key in dbHappyNote) {
+				newHappyNotes.push({
+					key,
+					currentTitle: dbHappyNote[key].title,
+					currentHappyNote: dbHappyNote[key].happyNote,
+					currentDate: dbHappyNote[key].date,
+					currentImage: dbHappyNote[key].image
+				})
+			}
+			console.log(newHappyNotes);
+			this.setState({
+				happyNotes: newHappyNotes
+			});
+			console.log(this.state.happyNotes);
+		})
+	}
+	componentWillUnmount() {
+		dbRef.off('value');
 	}
 	render() {
 		return (
