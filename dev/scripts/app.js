@@ -26,83 +26,96 @@ import {
 // Set up firebase database
 import firebase, { auth, database, provider, dbRef } from './firebase.js';
 import HappyNote from './components/happynote.js';
-
-
+import OpenNotes from './components/opennotes.js';
 
 // Array.from(this.state.array);
 // Object.create(this.state.object);
 // Object.assign({}, this.state.object); // merge objects together in one object
-
-class OpenNotes extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			happyNotes: []
-		}
-	}
-	componentDidMount() {
-		dbRef.on('value', (snapshot) => {
-			const dbHappyNote = snapshot.val();
-			const newHappyNotes = [];
-			console.log(dbHappyNote);
-			for (let key in dbHappyNote) {
-				newHappyNotes.push({
-					key,
-					currentTitle: dbHappyNote[key].title,
-					currentHappyNote: dbHappyNote[key].happyNote,
-					currentDate: dbHappyNote[key].date,
-					currentImage: dbHappyNote[key].image
-				})
-			}
-			console.log(newHappyNotes);
-			this.setState({
-				happyNotes: newHappyNotes
-			});
-			console.log(this.state.happyNotes);
-		})
-	}
-	componentWillUnmount() {
-		dbRef.off('value');
-	}
-	render() {
-		return (
-			<div>
-				<h2>Your Notes</h2>
-				<ul>
-					<li>Notes go here</li>
-				</ul>
-			</div>
-		)
-	}
-}
 
 class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
 			loggedIn: false,
-			user: null
+			user: null,
+			userId: ''
 		}
+		this.login = this.login.bind(this);
+		this.logout = this.logout.bind(this);
+	}
+	login() {
+		auth.signInWithPopup(provider)
+			.then((result) => {
+				const user = result.user;
+				const userId = user.uid;
+				console.log(userId)
+				this.setState({
+					user,
+					loggedIn: true,
+					userId
+				})
+			});
+	}
+	logout() {
+		auth.signOut()
+			.then(() => {
+				this.setState({
+					user: null,
+					loggedIn: false
+				})
+			});
 	}
 	render() {
+		const showHome = () => {
+			if (this.state.loggedIn) {
+				return (
+					<div>
+						<header>
+							<h1>Happiness Jar</h1>
+							<button onClick={this.logout}>Log Out</button>
+						</header>
+						<main>
+							<Link to={`/writeNote/${this.state.userId}`}><button>Write a Happy Note</button></Link>
+							<Link to={`/openNotes/${this.state.userId}`}><button>See Happy Notes</button></Link>
+							<Route 
+								path="/writeNote/:id" 
+								render={(props) => <HappyNote id={this.state.userId} {...props}/>} />
+							<Route 
+								path="/openNotes/:id" 
+								render={(props) => <OpenNotes id={this.state.userId} {...props}/>} />
+						</main>
+					</div>
+				)
+			} else {
+				return (
+					<header>
+						<h1>Welcome to Happiness Jar</h1>
+						<p>Please log in</p>
+						<button onClick={this.login}>Log In</button>
+					</header>
+					
+				)
+			} 
+		}
 		return (
 			<Router>
-				<div>
-					<header>
-						<h1>Happiness Jar</h1>
-						<button>Log In</button>
-						<button>Log Out</button>
-					</header>
-					<main>
-						<Link to="/writeNote"><button>Write a Happy Note</button></Link>
-						<Link to="/openNotes"><button>See Happy Notes</button></Link>
-						<Route path="/writeNote" component={HappyNote}/>
-						<Route path="/openNotes" component={OpenNotes}/>
-					</main>
-				</div>
+				{showHome()}
 			</Router>
 		)
 	}
+	componentDidMount() {
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				this.setState({
+					user,
+					loggedIn: true
+				});
+			} 
+		});
+	}
 }
+
+// need to pass in user id as a props.match.params.userid to the other componenets
+
 
 ReactDOM.render(<App />, document.getElementById('app'));
