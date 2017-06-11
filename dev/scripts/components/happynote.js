@@ -65,7 +65,7 @@ export default class HappyNote extends React.Component {
 					formSubmitted: true 
 				})
 			}
-		})
+		});
 	}
 	resetForm() {
 		// need refactoring
@@ -76,7 +76,7 @@ export default class HappyNote extends React.Component {
 			if (this.state.loading) {
 				return (
 					<div className="loadingScreen">
-						<p>Loading...</p> {/*insert animated loading screen*/}
+						<p>Loading...</p> {/*insert animated loading screen - jar filling up*/}
 					</div>
 				)
 			}

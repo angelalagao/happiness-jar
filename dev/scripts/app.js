@@ -27,6 +27,7 @@ import {
 import firebase, { auth, database, provider, dbRef } from './firebase.js';
 import HappyNote from './components/happynote.js';
 import OpenNotes from './components/opennotes.js';
+import _ from 'underscore';
 
 // Array.from(this.state.array);
 // Object.create(this.state.object);
@@ -38,7 +39,8 @@ class App extends React.Component {
 		this.state = {
 			loggedIn: false,
 			user: null,
-			userId: ''
+			userId: '',
+			firstTimeUser: true
 		}
 		this.login = this.login.bind(this);
 		this.logout = this.logout.bind(this);
@@ -48,13 +50,41 @@ class App extends React.Component {
 			.then((result) => {
 				const user = result.user;
 				const userId = user.uid;
-				console.log(userId);
 				this.setState({
 					user,
 					loggedIn: true,
 					userId
+				}, () => {
+					const usersRef = firebase.database().ref(`/users/`);
+					usersRef.once('value', (snapshot) => {
+						const userList = snapshot.val();
+
+						if (userList === null) {
+							usersRef.push({
+								name: this.state.user.displayName,
+								id: this.state.user.uid
+							});
+						} else {
+							console.log(userList);
+							const userIds = _.pluck(userList, 'id');
+
+							if (userIds.includes(this.state.user.uid)) {
+								console.log('user already signed in before')
+							} else {
+								this.newUser();
+								const usersListRef = firebase.database().ref(`/users/`);
+								usersListRef.push({
+									name: this.state.user.displayName,
+									id: this.state.user.uid
+								});
+							}
+						}
+					});
 				})
 			});
+	}
+	newUser() {
+		alert('hi whats up');
 	}
 	logout() {
 		auth.signOut()
@@ -72,7 +102,9 @@ class App extends React.Component {
 					<div>
 						<header>
 							<h1>Happiness Jar</h1>
-							<button onClick={this.logout}>Log Out</button>
+							<Link to="/">
+								<button onClick={this.logout}>Log Out</button>
+							</Link>
 						</header>
 						<main>
 							<Link to={`/writeNote/${this.state.userId}`}>
@@ -81,12 +113,17 @@ class App extends React.Component {
 							<Link to={`/openNotes/${this.state.userId}`}>
 								<button>See Happy Notes</button>
 							</Link>
+							<Link to={`/${this.state.userId}`}>
+								<button>Home</button>
+							</Link>
 							<Route 
 								path="/writeNote/:userId" 
 								component={HappyNote} />
 							<Route 
 								path="/openNotes/:userId" 
 								component={OpenNotes} />
+							<Route 
+								path="/:userId"/>
 						</main>
 					</div>
 				)
@@ -97,13 +134,18 @@ class App extends React.Component {
 						<p>Please log in</p>
 						<button onClick={this.login}>Log In</button>
 					</header>
+
 					
 				)
 			} 
 		}
 		return (
 			<Router>
-				{showHome()}
+				<div>
+					{showHome()}
+					<Route 
+						path="/"/>
+				</div>
 			</Router>
 		)
 	}

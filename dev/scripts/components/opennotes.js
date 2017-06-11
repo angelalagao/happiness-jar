@@ -7,12 +7,16 @@ import moment from 'moment';
 // display on the page in chronological order where a set of notes are displayed for each week
 // i.e. show 'recap' of all notes from the week of june 5th-11th etc.
 
+// create another class that will show the individual note and like the note 'add to favorites'
+
 export default class OpenNotes extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			orderedHappyNotes: []
+			orderedHappyNotes: [],
+			favourites: []
 		}
+		this.addToFavourites = this.addToFavourites.bind(this);
 	}
 	componentDidMount() {
 		const newHappyNotes = [];
@@ -45,11 +49,18 @@ export default class OpenNotes extends React.Component {
 				orderedHappyNotes: orderedHappyNotes.reverse()
 			});
 			window.orderedHappyNotes = this.state.orderedHappyNotes;
-		})
+		});
 	}
 	componentWillUnmount() {
 		const userRef = firebase.database().ref(this.props.match.params.userId);
 		userRef.off('value');
+	}
+	addToFavourites(e) {
+		const userFavourites = Array.from(this.state.favourites);
+		// [e.target.key] = e.target
+		// this.setState({
+		// 	favourites:
+		// })
 	}
 	// need to show the user the week of notes they are reviewing
 	render() {
@@ -64,11 +75,12 @@ export default class OpenNotes extends React.Component {
 								<ul>
 									{note.notes.map((singleNote) => {
 										return (
-											<li key={singleNote.key}>
+											<li key={singleNote.key} name="userNote">
 												<h3>{singleNote.currentTitle}</h3>
 												<p>{singleNote.currentDate.toString().replace('GMT-0400 (EDT)', '')}</p>
 												<img src={singleNote.currentImage} alt=""/>
 												<p>{singleNote.currentHappyNote}</p>
+												<button onClick={this.addToFavourites}>Favourite</button>
 											</li>
 										)
 									})}
