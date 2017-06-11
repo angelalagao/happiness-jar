@@ -1,9 +1,11 @@
 import React from 'react';
 import firebase, { auth, database, provider, dbRef } from '../firebase.js';
+import App from '../app.js';
+
 
 export default class HappyNote extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			currentTitle: '',
 			currentImage: '',
@@ -24,7 +26,7 @@ export default class HappyNote extends React.Component {
 		const file = this.file.files[0];
 		// only store to firebase if image size is < 2mb
 		if (file.size < 2048576) {
-			const storageRef = firebase.storage().ref(this.props.id);
+			const storageRef = firebase.storage().ref(this.props.match.params.userId);
 			const thisImage = storageRef.child(this.file.files[0].name);
 			this.setState({
 				loading: true
@@ -50,7 +52,7 @@ export default class HappyNote extends React.Component {
 		e.preventDefault();
 		const newDate = new Date();
 		// how to pass in the user object from app component to get the userId
-		const userRef = firebase.database().ref(this.props.id);
+		const userRef = firebase.database().ref(this.props.match.params.userId);
 		userRef.push({
 			title: this.state.currentTitle,
 			happyNote: this.state.currentHappyNote,

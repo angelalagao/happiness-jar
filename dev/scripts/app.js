@@ -32,7 +32,7 @@ import OpenNotes from './components/opennotes.js';
 // Object.create(this.state.object);
 // Object.assign({}, this.state.object); // merge objects together in one object
 
-class App extends React.Component {
+export default class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
@@ -48,7 +48,7 @@ class App extends React.Component {
 			.then((result) => {
 				const user = result.user;
 				const userId = user.uid;
-				console.log(userId)
+				console.log(userId);
 				this.setState({
 					user,
 					loggedIn: true,
@@ -75,14 +75,18 @@ class App extends React.Component {
 							<button onClick={this.logout}>Log Out</button>
 						</header>
 						<main>
-							<Link to={`/writeNote/${this.state.userId}`}><button>Write a Happy Note</button></Link>
-							<Link to={`/openNotes/${this.state.userId}`}><button>See Happy Notes</button></Link>
+							<Link to={`/writeNote/${this.state.userId}`}>
+								<button>Write a Happy Note</button>
+							</Link>
+							<Link to={`/openNotes/${this.state.userId}`}>
+								<button>See Happy Notes</button>
+							</Link>
 							<Route 
-								path="/writeNote/:id" 
-								render={(props) => <HappyNote id={this.state.userId} {...props}/>} />
+								path="/writeNote/:userId" 
+								component={HappyNote} />
 							<Route 
-								path="/openNotes/:id" 
-								render={(props) => <OpenNotes id={this.state.userId} {...props}/>} />
+								path="/openNotes/:userId" 
+								component={OpenNotes} />
 						</main>
 					</div>
 				)

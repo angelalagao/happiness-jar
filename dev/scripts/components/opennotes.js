@@ -2,14 +2,15 @@ import React from 'react';
 import firebase, { auth, database, provider, dbRef } from '../firebase.js';
 import _ from 'underscore';
 import moment from 'moment';
+import App from '../app.js';
 
 // need to sort notes per week
 // display on the page in chronological order where a set of notes are displayed for each week
 // i.e. show 'recap' of all notes from the week of june 5th-11th etc.
 
 export default class OpenNotes extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			orderedHappyNotes: []
 		}
@@ -17,7 +18,7 @@ export default class OpenNotes extends React.Component {
 	componentDidMount() {
 		const newHappyNotes = [];
 		let orderedHappyNotes = [];
-		const userRef = firebase.database().ref(this.props.id);
+		const userRef = firebase.database().ref(this.props.match.params.userId);
 		userRef.on('value', (snapshot) => {
 			const dbHappyNote = snapshot.val();
 			for (let key in dbHappyNote) {
@@ -48,7 +49,7 @@ export default class OpenNotes extends React.Component {
 		})
 	}
 	componentWillUnmount() {
-		const userRef = firebase.database().ref(this.props.id);
+		const userRef = firebase.database().ref(this.props.match.params.userId);
 		userRef.off('value');
 	}
 	// need to show the user the week of notes they are reviewing
@@ -80,8 +81,4 @@ export default class OpenNotes extends React.Component {
 			</div>
 		)
 	}
-}
-
-const displayNotes = () => {
-
 }
