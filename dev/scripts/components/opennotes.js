@@ -2,7 +2,6 @@ import React from 'react';
 import firebase, { auth, database, provider, dbRef } from '../firebase.js';
 import _ from 'underscore';
 import moment from 'moment';
-import App from '../app.js';
 
 // need to sort notes per week
 // display on the page in chronological order where a set of notes are displayed for each week

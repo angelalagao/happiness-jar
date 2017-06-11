@@ -1,6 +1,5 @@
 import React from 'react';
 import firebase, { auth, database, provider, dbRef } from '../firebase.js';
-import App from '../app.js';
 
 
 export default class HappyNote extends React.Component {

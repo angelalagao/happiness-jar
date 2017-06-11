@@ -32,7 +32,7 @@ import OpenNotes from './components/opennotes.js';
 // Object.create(this.state.object);
 // Object.assign({}, this.state.object); // merge objects together in one object
 
-export default class App extends React.Component {
+class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
