@@ -14,7 +14,8 @@ export default class OpenNotes extends React.Component {
 		super(props);
 		this.state = {
 			orderedHappyNotes: [],
-			favourites: []
+			favourites: [],
+			newFavourite: {}
 		}
 		this.addToFavourites = this.addToFavourites.bind(this);
 	}
@@ -49,6 +50,7 @@ export default class OpenNotes extends React.Component {
 				orderedHappyNotes: orderedHappyNotes.reverse()
 			});
 			window.orderedHappyNotes = this.state.orderedHappyNotes;
+			console.table(this.state.orderedHappyNotes);
 		});
 	}
 	componentWillUnmount() {
@@ -56,11 +58,17 @@ export default class OpenNotes extends React.Component {
 		userRef.off('value');
 	}
 	addToFavourites(e) {
-		const userFavourites = Array.from(this.state.favourites);
-		// [e.target.key] = e.target
-		// this.setState({
-		// 	favourites:
-		// })
+		const favourites = Array.from(this.state.favourites);
+		this.state.orderedHappyNotes.map((happyNote) => {
+			happyNote.notes.map((note) => {
+				if (note.key === e.target.value) {
+					favourites.push(note);
+					this.setState({
+						favourites
+					})
+				}
+			})
+		})
 	}
 	// need to show the user the week of notes they are reviewing
 	render() {
@@ -80,7 +88,7 @@ export default class OpenNotes extends React.Component {
 												<p>{singleNote.currentDate.toString().replace('GMT-0400 (EDT)', '')}</p>
 												<img src={singleNote.currentImage} alt=""/>
 												<p>{singleNote.currentHappyNote}</p>
-												<button onClick={this.addToFavourites}>Favourite</button>
+												<button value={singleNote.key} onClick={this.addToFavourites}>Favourite</button>
 											</li>
 										)
 									})}
