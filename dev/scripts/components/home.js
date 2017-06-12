@@ -18,12 +18,11 @@ export default class Home extends React.Component {
 	render() {
 		return (
 			<div>
-				<h2>Welcome {this.props.user.displayName}</h2>
+				<h2>Welcome, {this.props.user.displayName}</h2>
 				<img src={this.props.user.photoURL} alt=""/>
 				{this.props.firstTime && !this.state.finished ?
 					<Instructions finish={this.finishInstructions}/> : null
 				}
-
 			</div>
 		)
 	}

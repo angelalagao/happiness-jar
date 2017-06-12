@@ -103,12 +103,15 @@ class App extends React.Component {
 		const showHome = () => {
 			if (this.state.loggedIn) {
 				return (
-					<div>
-						<header>
+					<div className="wrapper">
+						<header className="loggedInHeader">
 							<h1>Happiness Jar</h1>
 							<Link to="/">
 								<button onClick={this.logout}>Log Out</button>
 							</Link>
+							<Route 
+								exact path="/:userId" 
+								render= {() => <Home user={this.state.user} firstTime={this.state.firstTimeUser} />} />
 						</header>
 						<main>
 							<Link to={`/writeNote/${this.state.userId}`}>
@@ -138,18 +141,21 @@ class App extends React.Component {
 							<Route 
 								path="/favourites/:userId" 
 								component={Favourites} />
-							<Route 
-								exact path="/:userId" 
-								render= {() => <Home user={this.state.user} firstTime={this.state.firstTimeUser} />} />
 						</main>
 					</div>
 				)
 			} else {
 				return (
-					<header>
+					<header className="loginHome">
 						<h1>Welcome to Happiness Jar</h1>
-						<p>Please log in</p>
-						<button onClick={this.login}>Log In</button>
+						<p>Write down something that made you happy</p>
+						<div className="loginHome__login">
+							<p>Please log in using Google</p>
+							<button 
+								onClick={this.login}>
+								Log In
+							</button>
+						</div>
 					</header>
 				)
 			} 

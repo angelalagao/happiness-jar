@@ -1,1 +1,36 @@
+@import 'partials/setup';
+@import 'partials/variables';
+@import 'partials/login';
 // Main font: Raleway Dots or Pacifico
+html {
+	font-size: 62.5%;
+}
+body {
+	font-family: $headerFont;
+	font-size: 1.4rem;
+}
+
+h1 {
+	font-size: 4.8rem;
+	// font-family: $cursiveFont;
+	color: $purpleColor;
+}
+
+h2, h3 {
+	color: $blueColor;
+}
+
+header {
+	margin: 0 auto;
+}
+
+.wrapper {
+	max-width: 1180px;
+	margin: 0 auto;
+}
+
+.loggedInHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
