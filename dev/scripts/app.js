@@ -27,6 +27,7 @@ import {
 import firebase, { auth, database, provider, dbRef } from './firebase.js';
 import HappyNote from './components/happynote.js';
 import OpenNotes from './components/opennotes.js';
+import Favourites from './components/favourites.js';
 import _ from 'underscore';
 
 // Array.from(this.state.array);
@@ -113,6 +114,9 @@ class App extends React.Component {
 							<Link to={`/openNotes/${this.state.userId}`}>
 								<button>See Happy Notes</button>
 							</Link>
+							<Link to={`/favourites/${this.state.userId}`}>
+								<button>Favourites</button>
+							</Link>
 							<Link to={`/${this.state.userId}`}>
 								<button>Home</button>
 							</Link>
@@ -122,6 +126,9 @@ class App extends React.Component {
 							<Route 
 								path="/openNotes/:userId" 
 								component={OpenNotes} />
+							<Route 
+								path="/favourites/:userId" 
+								component={Favourites} />
 							<Route 
 								path="/:userId"/>
 						</main>

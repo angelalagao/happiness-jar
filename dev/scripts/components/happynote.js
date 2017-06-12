@@ -56,7 +56,8 @@ export default class HappyNote extends React.Component {
 			title: this.state.currentTitle,
 			happyNote: this.state.currentHappyNote,
 			date: newDate.toString(),
-			image: this.state.currentImage
+			image: this.state.currentImage,
+			favourited: false
 		});
 		userRef.on('value', (snapshot) => {
 			const userDb = snapshot.val();

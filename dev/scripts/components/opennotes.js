@@ -2,6 +2,12 @@ import React from 'react';
 import firebase, { auth, database, provider, dbRef } from '../firebase.js';
 import _ from 'underscore';
 import moment from 'moment';
+import {
+	BrowserRouter as Router,
+	NavLink as Link,
+	Route
+} from 'react-router-dom';
+import Favourites from './favourites.js'
 
 // need to sort notes per week
 // display on the page in chronological order where a set of notes are displayed for each week
@@ -15,7 +21,7 @@ export default class OpenNotes extends React.Component {
 		this.state = {
 			orderedHappyNotes: [],
 			favourites: [],
-			newFavourite: {}
+			favouriteKey: ''
 		}
 		this.addToFavourites = this.addToFavourites.bind(this);
 	}
@@ -50,7 +56,6 @@ export default class OpenNotes extends React.Component {
 				orderedHappyNotes: orderedHappyNotes.reverse()
 			});
 			window.orderedHappyNotes = this.state.orderedHappyNotes;
-			console.table(this.state.orderedHappyNotes);
 		});
 	}
 	componentWillUnmount() {
@@ -64,11 +69,16 @@ export default class OpenNotes extends React.Component {
 				if (note.key === e.target.value) {
 					favourites.push(note);
 					this.setState({
+						favouriteKey: note.key,
 						favourites
 					})
 				}
 			})
 		})
+		const userRef = firebase.database().ref(this.props.match.params.userId).child(e.target.value);
+		userRef.update({
+			favourited: true
+		});
 	}
 	// need to show the user the week of notes they are reviewing
 	render() {
@@ -83,12 +93,16 @@ export default class OpenNotes extends React.Component {
 								<ul>
 									{note.notes.map((singleNote) => {
 										return (
-											<li key={singleNote.key} name="userNote">
+											<li key={`note-${singleNote.key}`} name="userNote">
 												<h3>{singleNote.currentTitle}</h3>
 												<p>{singleNote.currentDate.toString().replace('GMT-0400 (EDT)', '')}</p>
 												<img src={singleNote.currentImage} alt=""/>
 												<p>{singleNote.currentHappyNote}</p>
-												<button value={singleNote.key} onClick={this.addToFavourites}>Favourite</button>
+												<button 
+													value={singleNote.key} 
+													onClick={this.addToFavourites}>
+													Favourite
+												</button>
 											</li>
 										)
 									})}
