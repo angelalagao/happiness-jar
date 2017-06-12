@@ -20,16 +20,14 @@ export default class OpenNotes extends React.Component {
 		super(props);
 		this.state = {
 			orderedHappyNotes: [],
-			favourites: [],
-			favouriteKey: ''
 		}
 		this.addToFavourites = this.addToFavourites.bind(this);
 	}
 	componentDidMount() {
-		const newHappyNotes = [];
-		let orderedHappyNotes = [];
 		const userRef = firebase.database().ref(this.props.match.params.userId);
 		userRef.on('value', (snapshot) => {
+			let newHappyNotes = [];
+			let orderedHappyNotes = [];
 			const dbHappyNote = snapshot.val();
 			for (let key in dbHappyNote) {
 				newHappyNotes.push({
@@ -55,7 +53,6 @@ export default class OpenNotes extends React.Component {
 			this.setState({
 				orderedHappyNotes: orderedHappyNotes.reverse()
 			});
-			window.orderedHappyNotes = this.state.orderedHappyNotes;
 		});
 	}
 	componentWillUnmount() {
@@ -63,18 +60,6 @@ export default class OpenNotes extends React.Component {
 		userRef.off('value');
 	}
 	addToFavourites(e) {
-		const favourites = Array.from(this.state.favourites);
-		this.state.orderedHappyNotes.map((happyNote) => {
-			happyNote.notes.map((note) => {
-				if (note.key === e.target.value) {
-					favourites.push(note);
-					this.setState({
-						favouriteKey: note.key,
-						favourites
-					})
-				}
-			})
-		})
 		const userRef = firebase.database().ref(this.props.match.params.userId).child(e.target.value);
 		userRef.update({
 			favourited: true
@@ -86,9 +71,9 @@ export default class OpenNotes extends React.Component {
 			<div>
 				<h2>Your Notes</h2>
 				<div>
-					{this.state.orderedHappyNotes.map((note) => {
+					{this.state.orderedHappyNotes.map((note,i) => {
 						return (
-							<div key={`week-${note.weekOf}`}>
+							<div key={`week-${note.weekOf + i}`}>
 								<h2>{`Week of ${note.weekOf.toString().replace('00:00:00 GMT-0400', '')}`}</h2>
 								<ul>
 									{note.notes.map((singleNote) => {

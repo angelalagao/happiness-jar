@@ -13,10 +13,11 @@ export default class Favourites extends React.Component {
 		return	(
 			<div>
 				<h2>THIS IS YOUR Favourites</h2>
-				{this.state.favourites.map((favourite) => {
+				{this.state.favourites.map((favourite, i) => {
+					{console.log(favourite)}
 					return (
-						<ul>
-							<li>
+						<ul key={`note-${favourite.id}`}>
+							<li key={favourite.id + i}>
 								<h3>{favourite.title}</h3>
 								<p>{favourite.date.replace('GMT-0400 (EDT)', '')}</p>
 								<img src={favourite.image} alt=""/>

@@ -52,14 +52,21 @@ export default class HappyNote extends React.Component {
 		const newDate = new Date();
 		// how to pass in the user object from app component to get the userId
 		const userRef = firebase.database().ref(this.props.match.params.userId);
-		userRef.push({
+		userRef
+			.push({
 			title: this.state.currentTitle,
 			happyNote: this.state.currentHappyNote,
 			date: newDate.toString(),
 			image: this.state.currentImage,
 			favourited: false
-		});
-		userRef.on('value', (snapshot) => {
+			})
+			.then((snapshot) => {
+				const noteKey = snapshot.key;
+				userRef.child(noteKey).update({
+					id: noteKey
+				})
+			});
+		userRef.once('value', (snapshot) => {
 			const userDb = snapshot.val();
 			if (Object.keys(userDb).length !== 0) {
 				this.setState({

@@ -21,13 +21,16 @@ import ReactDOM from 'react-dom';
 import {
 	BrowserRouter as Router,
 	NavLink as Link,
-	Route
+	Route,
+	Redirect
 } from 'react-router-dom';
 // Set up firebase database
 import firebase, { auth, database, provider, dbRef } from './firebase.js';
 import HappyNote from './components/happynote.js';
 import OpenNotes from './components/opennotes.js';
 import Favourites from './components/favourites.js';
+import Instructions from './components/instructions.js';
+import Home from './components/home.js'
 import _ from 'underscore';
 
 // Array.from(this.state.array);
@@ -66,13 +69,16 @@ class App extends React.Component {
 								id: this.state.user.uid
 							});
 						} else {
-							console.log(userList);
 							const userIds = _.pluck(userList, 'id');
 
 							if (userIds.includes(this.state.user.uid)) {
-								console.log('user already signed in before')
+								this.setState({
+									firstTimeUser: false
+								});
 							} else {
-								this.newUser();
+								this.setState({
+									firstTimeUser: true
+								});
 								const usersListRef = firebase.database().ref(`/users/`);
 								usersListRef.push({
 									name: this.state.user.displayName,
@@ -83,9 +89,6 @@ class App extends React.Component {
 					});
 				})
 			});
-	}
-	newUser() {
-		alert('hi whats up');
 	}
 	logout() {
 		auth.signOut()
@@ -120,6 +123,12 @@ class App extends React.Component {
 							<Link to={`/${this.state.userId}`}>
 								<button>Home</button>
 							</Link>
+							<Route exact path="/" 
+								render={ () => (
+									this.state.loggedIn ? 
+									<Redirect to={`/${this.state.userId}`} /> : null
+								)
+								} />
 							<Route 
 								path="/writeNote/:userId" 
 								component={HappyNote} />
@@ -130,7 +139,8 @@ class App extends React.Component {
 								path="/favourites/:userId" 
 								component={Favourites} />
 							<Route 
-								path="/:userId"/>
+								exact path="/:userId" 
+								render= {() => <Home user={this.state.user} firstTime={this.state.firstTimeUser} />} />
 						</main>
 					</div>
 				)
@@ -141,8 +151,6 @@ class App extends React.Component {
 						<p>Please log in</p>
 						<button onClick={this.login}>Log In</button>
 					</header>
-
-					
 				)
 			} 
 		}
@@ -161,6 +169,7 @@ class App extends React.Component {
 			if (user) {
 				this.setState({
 					user,
+					userId: user.uid,
 					loggedIn: true
 				});
 			} 
