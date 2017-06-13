@@ -1,3 +1,57 @@
-@mixin fontSize (fontsize) {
-	font-size: fontSize
+@mixin secondaryHeader ($sizeValue, $fontFamily) {
+	font-size: $sizeValue;
+	font-family: $fontFamily;
+	color: $blueColor;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+@mixin buttonCustom ($fontColor, $fontFamily) {
+	background: rgba(lighten($purpleColor, 0.8), 0.2);
+	font-family: $fontFamily;
+	font-size: 1.8rem;
+	color: $fontColor;
+	padding: 18px;
+	border: 2px solid $blueColor;
+	border-radius: 5px;
+	transition: 0.3s;
+	overflow: hidden;
+	position: relative;
+	&:after {
+		position: absolute;
+		transition: 0.3s;
+		content: '';
+		width: 0%;
+		left: 50%;
+		bottom: 0;
+		height: 3px;
+		background: $purpleColor;
+	}
+	&:hover {
+		cursor: pointer;
+		box-shadow: 0px 0px 0px 1.5px $blueColor;
+		&:after {
+			width: 0%;
+		}
+	}
+}
+
+@mixin modal () {
+	text-align: center;
+	width: 400px;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 25px;
+	background: linear-gradient(to bottom, rgba($purpleColor, 0.8), rgba($purpleColor, 0.7), rgba($blueColor, 0.7), rgba($blueColor, 0.8));
+	border-radius: 5px;
+	color: black;
+	button {
+		@include buttonCustom($purpleColor, $baseFont);
+		letter-spacing: 1.8px;
+		width: 50%;
+		outline: none;
+		// @include buttonAfter();
+	}
 }

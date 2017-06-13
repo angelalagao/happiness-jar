@@ -1,9 +1,4 @@
 import React from 'react';
-import {
-	BrowserRouter as Router,
-	NavLink as Link,
-	Route
-} from 'react-router-dom';
 // import firebase, { auth, database, provider, dbRef } from '../firebase.js';
 
 export default class Instructions extends React.Component {
@@ -35,17 +30,19 @@ export default class Instructions extends React.Component {
 	}
 	render() {
 		return (
-			<Router>
-				<div>
-					<h2>How to get started:</h2>
-					<Instruction 
-						step={this.state.instructions[this.state.currentStep].step} 
-						content={this.state.instructions[this.state.currentStep].content} />
-					{this.state.currentStep === this.state.instructions.length - 1 ? 
-					<button onClick={this.props.finish}>Get Started</button> :
-					<button onClick={this.changeStep}>Next</button>}
-				</div>
-			</Router>
+			<div className="instruction">
+				<h2>How to Get Started:</h2>
+				<Instruction 
+					step={this.state.instructions[this.state.currentStep].step} 
+					content={this.state.instructions[this.state.currentStep].content} />
+				{this.state.currentStep === this.state.instructions.length - 1 ? 
+				<button onClick={this.props.finish}>
+					<i className="fa fa-check" aria-hidden="true"></i>
+				</button> :
+				<button onClick={this.changeStep}>
+					<i className="fa fa-step-forward" aria-hidden="true"></i>
+				</button>}
+			</div>
 		)
 	}
 }

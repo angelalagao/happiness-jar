@@ -6,24 +6,22 @@ export default class Home extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			finished: false
 		}
-		this.finishInstructions = this.finishInstructions.bind(this);
-	}
-	finishInstructions() {
-		this.setState({
-			finished: true
-		});
 	}
 	render() {
 		return (
 			<div>
-				<h2>Welcome, {this.props.user.displayName}</h2>
-				<img src={this.props.user.photoURL} alt=""/>
-				{this.props.firstTime && !this.state.finished ?
-					<Instructions finish={this.finishInstructions}/> : null
-				}
+				<div className="userHeader">
+					<h2>Welcome, {this.props.user.displayName}</h2>
+					<img className="userImage" src={this.props.user.photoURL} alt=""/>
+				</div>
+					{this.props.firstTime && !this.props.finished ?
+						<div className="instructions">
+							<Instructions finish={this.props.finishInstructions}/>
+						</div> : null
+					}
 			</div>
+
 		)
 	}
 }

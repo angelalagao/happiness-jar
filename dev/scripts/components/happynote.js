@@ -92,43 +92,53 @@ export default class HappyNote extends React.Component {
 		const showSubmitted = () => {
 			if (this.state.formSubmitted) {
 				return (
-					<div className="submitted">
-						<p>Happy Note Saved</p>
-						<button onClick={this.resetForm}>Ok</button>
+					<div className="submittedBackground">
+						<div className="submitted">
+							<p>Happy Note Saved</p>
+							<button onClick={this.resetForm}>Ok</button>
+						</div>
 					</div>
 				)
 			}
 		}
 		return (
 			<div>
-				<h2>Write your note here</h2>
-				<form action="" onSubmit={this.handleSubmit}>
-					<input 
-						onChange={this.handleChange} 
-						name="currentTitle" 
-						value={this.state.currentTitle} 
-						type="text" placeholder="Title"/>
-					<input 
-						onChange={this.uploadPhoto} 
-						ref={(ref) => {this.file = ref}} 
-						type="file" 
-						name="currentImage" 
-						accept="image/*" />
-					<textarea 
-						onChange={this.handleChange} 
-						name="currentHappyNote" 
-						value={this.state.currentHappyNote} 
-						rows="10" cols="50" 
-						placeholder="Enter your happy note here">
-					</textarea>
-					<input type="submit" value="Post Happy Note :D" />
-				</form>
-				<div>
-					<h1>{this.state.currentTitle}</h1>
-					<img src={this.state.currentImage} alt=""/>
-					<p>{this.state.currentHappyNote}</p>
+				<div className="noteWrapper">
+					<form className="noteForm" action="" onSubmit={this.handleSubmit}>
+						<h2>Write your note here</h2>
+						<label htmlFor="currentTitle">Title</label>
+						<input 
+							onChange={this.handleChange} 
+							name="currentTitle" 
+							value={this.state.currentTitle} 
+							type="text" placeholder="Happy Note"
+							required/>
+						<label htmlFor="currentImage">Upload Image (Optional)</label>
+						<input 
+							onChange={this.uploadPhoto}
+							ref={(ref) => {this.file = ref}} 
+							type="file" 
+							name="currentImage" 
+							accept="image/*" />
+						{showLoadingScreen()}
+						<label htmlFor="currentHappyNote">Write Happy Note</label>
+						<textarea 
+							onChange={this.handleChange} 
+							name="currentHappyNote" 
+							value={this.state.currentHappyNote} 
+							rows="10" cols="50" 
+							placeholder="Today was awesome because..."
+							required>
+						</textarea>
+						<input type="submit" value="Create Note" />
+					</form>
+					<div className="notePreview">
+						<h2>Live Preview</h2>
+						<h1>{this.state.currentTitle}</h1>
+						<img src={this.state.currentImage} alt=""/>
+						<p>{this.state.currentHappyNote}</p>
+					</div>
 				</div>
-				{showLoadingScreen()}
 				{showSubmitted()}
 			</div>
 		)

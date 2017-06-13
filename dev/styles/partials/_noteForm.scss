@@ -1,0 +1,46 @@
+.noteWrapper {
+	display: flex;
+}
+
+.noteForm {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	input, textarea {
+		margin: 10px 0;
+		padding: 20px;
+		outline-color: $blueColor;
+	}
+	input[type="submit"] {
+		@include buttonCustom ($purpleColor, $baseFont)
+		width: 50%;
+	}
+	input[type="text"], textarea {
+		border: 1px solid $blueColor;
+		border-radius: 2px;
+	}
+}
+
+.notePreview {
+	width: 50%;
+	padding: 20px;
+}
+
+.submittedBackground {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	margin: auto;
+}
+
+.submitted {
+	@include modal();
+	p {
+		@include secondaryHeader(1.8rem, $baseFont);
+		text-shadow: 1px 1px 1px darken($purpleColor, 0.3);
+	}
+}

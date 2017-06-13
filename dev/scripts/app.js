@@ -44,10 +44,18 @@ class App extends React.Component {
 			loggedIn: false,
 			user: null,
 			userId: '',
-			firstTimeUser: true
+			firstTimeUser: true,
+			finished: false
 		}
 		this.login = this.login.bind(this);
 		this.logout = this.logout.bind(this);
+		this.finishInstructions = this.finishInstructions.bind(this);
+	}
+	finishInstructions() {
+		this.setState({
+			finished: true,
+			firstTimeUser: false
+		});
 	}
 	login() {
 		auth.signInWithPopup(provider)
@@ -97,6 +105,7 @@ class App extends React.Component {
 					user: null,
 					loggedIn: false
 				})
+				window.location.pathname = '/';
 			});
 	}
 	render() {
@@ -106,30 +115,39 @@ class App extends React.Component {
 					<div className="wrapper">
 						<header className="loggedInHeader">
 							<h1>Happiness Jar</h1>
-							<Link to="/">
-								<button onClick={this.logout}>Log Out</button>
-							</Link>
-							<Route 
-								exact path="/:userId" 
-								render= {() => <Home user={this.state.user} firstTime={this.state.firstTimeUser} />} />
+							<div className="loggedInHeader__nav">
+								<img src={this.state.user.photoURL} alt=""/>
+								<Link to="/">
+									<button onClick={this.logout}>
+										Log Out <i className="fa fa-sign-out" aria-hidden="true"></i>
+									</button>
+								</Link>
+								<button>Edit Profile</button>
+							</div>
 						</header>
 						<main>
-							<Link to={`/writeNote/${this.state.userId}`}>
-								<button>Write a Happy Note</button>
-							</Link>
-							<Link to={`/openNotes/${this.state.userId}`}>
-								<button>See Happy Notes</button>
-							</Link>
-							<Link to={`/favourites/${this.state.userId}`}>
-								<button>Favourites</button>
-							</Link>
-							<Link to={`/${this.state.userId}`}>
-								<button>Home</button>
-							</Link>
+							<div>
+								<Link to={`/writeNote/${this.state.userId}`}>
+									<button>Write a Happy Note</button>
+								</Link>
+								<Link to={`/openNotes/${this.state.userId}`}>
+									<button>See Happy Notes</button>
+								</Link>
+								<Link to={`/favourites/${this.state.userId}`}>
+									<button>Favourites</button>
+								</Link>
+								<Link to={`/${this.state.userId}`}>
+									<button>Home</button>
+								</Link>
+							</div>
+							<Route 
+								exact path="/:userId" 
+								render= {() => <Home finishInstructions={this.finishInstructions} user={this.state.user} finished={this.state.finished} firstTime={this.state.firstTimeUser} />} />
 							<Route exact path="/" 
 								render={ () => (
 									this.state.loggedIn ? 
-									<Redirect to={`/${this.state.userId}`} /> : null
+									<Redirect to={`/${this.state.userId}`} /> : 
+									<Redirect to='/' />
 								)
 								} />
 							<Route 
@@ -148,10 +166,11 @@ class App extends React.Component {
 				return (
 					<header className="loginHome">
 						<h1>Welcome to Happiness Jar</h1>
-						<p>Write down something that made you happy</p>
+						<p className="loginHome__text">Write down something that made you happy</p>
 						<div className="loginHome__login">
-							<p>Please log in using Google</p>
-							<button 
+							<p className="loginHome__text">Please log in using Google</p>
+							<button
+								className="loginHome__button" 
 								onClick={this.login}>
 								Log In
 							</button>
