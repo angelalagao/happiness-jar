@@ -91,9 +91,8 @@ export default class OpenNotes extends React.Component {
 													<p className="noteText">{singleNote.currentHappyNote}</p>
 												</div>
 												<button 
-													value={singleNote.key} 
-													onClick={this.addToFavourites}>
-													<i className="fa fa-thumb-tack" aria-hidden="true"></i>
+													value={singleNote.key} >
+													<i onClick={this.addToFavourites} className="fa fa-thumb-tack" aria-hidden="true"></i>
 												</button>
 											</li>
 										)
