@@ -3,11 +3,10 @@
 	font-family: $fontFamily;
 	color: $blueColor;
 	letter-spacing: 2px;
-	text-transform: uppercase;
 }
 
 @mixin buttonCustom ($fontColor, $fontFamily) {
-	background: rgba(lighten($purpleColor, 0.8), 0.2);
+	background: rgba(lighten($purpleColor, 0.8), 0.8);
 	font-family: $fontFamily;
 	font-size: 1.8rem;
 	color: $fontColor;

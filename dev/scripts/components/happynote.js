@@ -105,7 +105,7 @@ export default class HappyNote extends React.Component {
 			<div>
 				<div className="noteWrapper">
 					<form className="noteForm" action="" onSubmit={this.handleSubmit}>
-						<h2>Write your note here</h2>
+						<h2>Write a Happy Note</h2>
 						<label htmlFor="currentTitle">Title</label>
 						<input 
 							onChange={this.handleChange} 

@@ -44,7 +44,7 @@ class App extends React.Component {
 			loggedIn: false,
 			user: null,
 			userId: '',
-			firstTimeUser: true,
+			firstTimeUser: false,
 			finished: false
 		}
 		this.login = this.login.bind(this);
@@ -66,36 +66,7 @@ class App extends React.Component {
 					user,
 					loggedIn: true,
 					userId
-				}, () => {
-					const usersRef = firebase.database().ref(`/users/`);
-					usersRef.once('value', (snapshot) => {
-						const userList = snapshot.val();
-
-						if (userList === null) {
-							usersRef.push({
-								name: this.state.user.displayName,
-								id: this.state.user.uid
-							});
-						} else {
-							const userIds = _.pluck(userList, 'id');
-
-							if (userIds.includes(this.state.user.uid)) {
-								this.setState({
-									firstTimeUser: false
-								});
-							} else {
-								this.setState({
-									firstTimeUser: true
-								});
-								const usersListRef = firebase.database().ref(`/users/`);
-								usersListRef.push({
-									name: this.state.user.displayName,
-									id: this.state.user.uid
-								});
-							}
-						}
-					});
-				})
+				});
 			});
 	}
 	logout() {
@@ -114,7 +85,9 @@ class App extends React.Component {
 				return (
 					<div className="wrapper">
 						<header className="loggedInHeader">
-							<h1>Happiness Jar</h1>
+							<Link to={`/${this.state.userId}`}>
+								<h1><span className="happiness">Happiness</span> Jar</h1>
+							</Link>
 							<div className="loggedInHeader__nav">
 								<img src={this.state.user.photoURL} alt=""/>
 								<Link to="/">
@@ -122,27 +95,39 @@ class App extends React.Component {
 										Log Out <i className="fa fa-sign-out" aria-hidden="true"></i>
 									</button>
 								</Link>
-								<button>Edit Profile</button>
 							</div>
 						</header>
 						<main>
-							<div>
+							<Route 
+							exact path="/:userId" 
+							render= {() => 
+								<Home 
+									finishInstructions={this.finishInstructions} 
+									user={this.state.user} 
+									finished={this.state.finished} 
+									firstTime={this.state.firstTimeUser} 
+								/>} 
+							/>
+							<div className="optionsNav">
 								<Link to={`/writeNote/${this.state.userId}`}>
-									<button>Write a Happy Note</button>
+									<div>
+										<i className="fa fa-pencil" aria-hidden="true"></i>
+										<p>Write a Happy Note</p>
+									</div>
 								</Link>
 								<Link to={`/openNotes/${this.state.userId}`}>
-									<button>See Happy Notes</button>
+									<div>
+										<i className="fa fa-unlock-alt" aria-hidden="true"></i>
+										<p>Open Happiness Jar</p>
+									</div>
 								</Link>
 								<Link to={`/favourites/${this.state.userId}`}>
-									<button>Favourites</button>
-								</Link>
-								<Link to={`/${this.state.userId}`}>
-									<button>Home</button>
+									<div>
+										<i className="fa fa-thumb-tack" aria-hidden="true"></i>
+										<p>Pinned Happy Notes</p>
+									</div>
 								</Link>
 							</div>
-							<Route 
-								exact path="/:userId" 
-								render= {() => <Home finishInstructions={this.finishInstructions} user={this.state.user} finished={this.state.finished} firstTime={this.state.firstTimeUser} />} />
 							<Route exact path="/" 
 								render={ () => (
 									this.state.loggedIn ? 
@@ -196,6 +181,35 @@ class App extends React.Component {
 					user,
 					userId: user.uid,
 					loggedIn: true
+				}, () => {
+					const usersRef = firebase.database().ref(`/users/`);
+					usersRef.once('value', (snapshot) => {
+						const userList = snapshot.val();
+
+						if (userList === null) {
+							usersRef.push({
+								name: this.state.user.displayName,
+								id: this.state.user.uid
+							});
+						} else {
+							const userIds = _.pluck(userList, 'id');
+
+							if (userIds.includes(this.state.user.uid)) {
+								this.setState({
+									firstTimeUser: false
+								});
+							} else {
+								this.setState({
+									firstTimeUser: true
+								});
+								const usersListRef = firebase.database().ref(`/users/`);
+								usersListRef.push({
+									name: this.state.user.displayName,
+									id: this.state.user.uid
+								});
+							}
+						}
+					});
 				});
 			} 
 		});

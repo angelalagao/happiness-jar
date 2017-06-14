@@ -16,7 +16,7 @@
 	flex-direction: column;
 	align-items: center;
 	padding: 25px;
-	background: linear-gradient(to bottom, rgba($purpleColor, 0.4), rgba($purpleColor, 0.3), rgba($blueColor, 0.4), rgba($blueColor, 0.5));
+	background: linear-gradient(to bottom, rgba($purpleColor, 0.8), rgba($purpleColor, 0.7), rgba($blueColor, 0.7), rgba($blueColor, 0.8));
 	border-radius: 5px;
 	color: black;
 	h2 {
@@ -26,7 +26,7 @@
 		color: $purpleColor;
 	}
 	button {
-		@include buttonCustom($purpleColor, $baseFont);
+		@include buttonCustom($blueColor, $baseFont);
 		letter-spacing: 1.8px;
 		width: 50%;
 		outline: none;

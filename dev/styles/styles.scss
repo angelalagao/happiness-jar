@@ -38,6 +38,17 @@ header {
 	margin: 0 auto;
 }
 
+ul {
+	list-style: none;
+	padding: 0;
+}
+
+a {
+	color: $purpleColor;
+	text-decoration: none;
+	letter-spacing: 1.3px;
+}
+
 .wrapper {
 	max-width: 1180px;
 	margin: 0 auto;
@@ -47,7 +58,10 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background: linear-gradient(to bottom, rgba($blueColor, 0.4), rgba($blueColor, 0.5), rgba($blueColor, 0.4), rgba($blueColor, 0.3), rgba($blueColor, 0.2), rgba($blueColor, 0.1));
+	.happiness {
+		padding-bottom: 8px;
+		border-bottom: 5px solid $blueColor;
+	}
 }
 
 .loggedInHeader__nav {
@@ -59,12 +73,57 @@ header {
 	}
 }
 
+.userProfile {
+	display: flex;
+	flex-direction: column;
+}
+
+.userHeader, .userIcons {
+	padding: 20px;
+	margin: auto;
+	width: 40%;
+	text-align: center;
+}
+
 .userImage {
 	width: 200px;
 	border-radius: 50%;
 }
 
+.week {
 
+}
+
+.happyNotes {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.happyNote {
+	border: 1px solid $blueColor;
+	border-radius: 2px;
+	box-shadow: 2px 2px 2px darken($purpleColor, 5);
+	padding: 20px;
+	margin: 10px;
+	width: calc(33.3% - 20px);
+	img {
+		max-width: 100%;
+	}
+}
+
+.optionsNav {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	a {
+		margin: 20px;
+	}
+	i {
+		font-size: 2.4rem;
+	}
+}
 
 
 

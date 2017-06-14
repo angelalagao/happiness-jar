@@ -50,8 +50,11 @@ export default class OpenNotes extends React.Component {
 					notes: orderedNotes[key]
 				})
 			}
+			const sortedDates = orderedHappyNotes.sort((a,b) => {
+				return new Date(b.weekOf) - new Date(a.weekOf)
+			});
 			this.setState({
-				orderedHappyNotes: orderedHappyNotes.reverse()
+				orderedHappyNotes: sortedDates
 			});
 		});
 	}
@@ -73,12 +76,14 @@ export default class OpenNotes extends React.Component {
 				<div>
 					{this.state.orderedHappyNotes.map((note,i) => {
 						return (
-							<div key={`week-${note.weekOf + i}`}>
+							<div className="week" key={`week-${note.weekOf + i}`}>
 								<h2>{`Week of ${note.weekOf.toString().replace('00:00:00 GMT-0400', '')}`}</h2>
-								<ul>
+								<ul className="happyNotes">
 									{note.notes.map((singleNote) => {
 										return (
-											<li key={`note-${singleNote.key}`} name="userNote">
+											<li className="happyNote"
+												key={`note-${singleNote.key}`} 
+												name="userNote">
 												<h3>{singleNote.currentTitle}</h3>
 												<p>{singleNote.currentDate.toString().replace('GMT-0400 (EDT)', '')}</p>
 												<img src={singleNote.currentImage} alt=""/>
