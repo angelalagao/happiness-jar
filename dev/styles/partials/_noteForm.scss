@@ -13,7 +13,7 @@
 		outline-color: $blueColor;
 	}
 	input[type="submit"] {
-		@include buttonCustom ($purpleColor, $baseFont)
+		@include buttonCustom ($blueColor, $baseFont)
 		width: 50%;
 	}
 	input[type="text"], textarea {
@@ -43,4 +43,29 @@
 		@include secondaryHeader(1.8rem, $baseFont);
 		text-shadow: 1px 1px 1px darken($purpleColor, 0.3);
 	}
+}
+
+// /* Portrait tablet and small desktops */
+@media (max-width: 940px) {
+
+}
+
+// /* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+	.noteWrapper {
+		justify-content: center;
+		align-items: center;
+		flex-direction: column-reverse;
+	}
+	.noteForm, .notePreview {
+		width: 85%;
+	}
+}
+
+// /* Landscape phones and down */
+@media (max-width: 480px) {
+	.noteForm, .notePreview {
+		width: 95%;
+	}
+
 }

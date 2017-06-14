@@ -5,6 +5,8 @@
 @import 'partials/button';
 @import 'partials/instructions';
 @import 'partials/noteForm';
+@import 'partials/home';
+@import 'partials/opennotes';
 // Main font: Raleway Dots or Pacifico
 html {
 	font-size: 62.5%;
@@ -54,77 +56,28 @@ a {
 	margin: 0 auto;
 }
 
-.loggedInHeader {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	.happiness {
-		padding-bottom: 8px;
-		border-bottom: 5px solid $blueColor;
+
+
+
+
+
+// /* Portrait tablet and small desktops */
+@media (max-width: 940px) {
+}
+
+// /* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+	h1 {
+		font-size: calc(3.4rem + (4.8 - 3.4) * ((100vw - 481px) / (768 - 481)));
 	}
 }
 
-.loggedInHeader__nav {
-	display: flex;
-	flex-direction: column;
-	img {
-		width: 50px;
-		border-radius: 50%;
+// /* Landscape phones and down */
+@media (max-width: 480px) {
+	h1 {
+		font-size: 3.2rem;
 	}
 }
-
-.userProfile {
-	display: flex;
-	flex-direction: column;
-}
-
-.userHeader, .userIcons {
-	padding: 20px;
-	margin: auto;
-	width: 40%;
-	text-align: center;
-}
-
-.userImage {
-	width: 200px;
-	border-radius: 50%;
-}
-
-.week {
-
-}
-
-.happyNotes {
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
-	flex-wrap: wrap;
-}
-
-.happyNote {
-	border: 1px solid $blueColor;
-	border-radius: 2px;
-	box-shadow: 2px 2px 2px darken($purpleColor, 5);
-	padding: 20px;
-	margin: 10px;
-	width: calc(33.3% - 20px);
-	img {
-		max-width: 100%;
-	}
-}
-
-.optionsNav {
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	a {
-		margin: 20px;
-	}
-	i {
-		font-size: 2.4rem;
-	}
-}
-
 
 
 

@@ -5,6 +5,7 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	text-align: center;
 }
 
 .loginHome__login {
@@ -14,4 +15,23 @@
 
 .loginHome__text {
 	font-size: 1.6rem;
+}
+
+// /* Portrait tablet and small desktops */
+@media (max-width: 940px) {
+}
+
+// /* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+
+}
+
+// /* Landscape phones and down */
+@media (max-width: 480px) {
+	.loginHome {
+		padding: 10px;
+	}
+	.loginHome__text {
+		font-size: 1.4rem;
+	}
 }

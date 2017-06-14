@@ -71,13 +71,13 @@ export default class OpenNotes extends React.Component {
 	// need to show the user the week of notes they are reviewing
 	render() {
 		return (
-			<div>
-				<h2>Your Notes</h2>
+			<div className="happinessJar">
+				<h2>Your <span className="notesTitle">Happy Notes</span></h2>
 				<div>
 					{this.state.orderedHappyNotes.map((note,i) => {
 						return (
 							<div className="week" key={`week-${note.weekOf + i}`}>
-								<h2>{`Week of ${note.weekOf.toString().replace('00:00:00 GMT-0400', '')}`}</h2>
+								<h3 className="weekOf">{`Week of ${note.weekOf.toString().replace('00:00:00 GMT-0400', '')}`}</h3>
 								<ul className="happyNotes">
 									{note.notes.map((singleNote) => {
 										return (
@@ -86,12 +86,14 @@ export default class OpenNotes extends React.Component {
 												name="userNote">
 												<h3>{singleNote.currentTitle}</h3>
 												<p>{singleNote.currentDate.toString().replace('GMT-0400 (EDT)', '')}</p>
-												<img src={singleNote.currentImage} alt=""/>
-												<p>{singleNote.currentHappyNote}</p>
+												<div className="noteContent">
+													<img src={singleNote.currentImage} alt=""/>
+													<p className="noteText">{singleNote.currentHappyNote}</p>
+												</div>
 												<button 
 													value={singleNote.key} 
 													onClick={this.addToFavourites}>
-													Favourite
+													<i className="fa fa-thumb-tack" aria-hidden="true"></i>
 												</button>
 											</li>
 										)

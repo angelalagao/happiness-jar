@@ -1,0 +1,100 @@
+.notesTitle {
+	border-bottom: 5px solid $purpleColor;
+	padding-bottom: 4px;
+}
+
+.week {
+
+}
+
+.weekOf {
+	color: $purpleColor;
+}
+
+.happyNotes {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.happyNote {
+	display: flex;
+	flex-direction: column;
+	border-radius: 2px;
+	box-shadow: 1px 1px 7px 0px darken($purpleColor, 5);
+	padding: 20px;
+	margin: 10px;
+	width: calc(33.3% - 20px);
+	img {
+		max-width: 100%;
+	}
+	i {
+		font-size: 2.4rem;
+		color: $purpleColor;
+	}
+	button {
+		align-self: center;
+		padding: 5px;
+		background: transparent;
+		border: none;
+		transition: all 0.5s;
+		&:hover {
+			transform: translateY(5px);
+		}
+	}
+}
+
+// /* Portrait tablet and small desktops */
+@media (max-width: 940px) {
+	.happinessJar {
+		margin: 20px;
+	}
+	.happyNote {
+		width: calc(50% - 20px);
+	}
+}
+
+// /* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+	.happyNotes {
+		justify-content: center;
+	}
+	.happyNote {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		width: 80%;
+		button {
+			align-self: flex-end;
+		}
+	}
+	.noteContent {
+		img, p {
+			max-width: 50%;
+			padding: 10px;
+		}
+		img {
+			flex-shrink: 0;
+		}
+		p {
+			flex-shrink: 1;
+		}
+		display: flex;
+		align-items: center;
+	}
+}
+
+// /* Landscape phones and down */
+@media (max-width: 480px) {
+	.happyNote {
+		width: 95%;
+	}
+	.noteContent {
+		flex-direction: column;
+		img, p {
+			max-width: 100%;
+			padding: 10px;
+		}
+	}
+}

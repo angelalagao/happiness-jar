@@ -1,0 +1,85 @@
+.loggedInHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	.happiness {
+		padding-bottom: 8px;
+		border-bottom: 5px solid $blueColor;
+	}
+}
+
+.loggedInHeader__nav {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	img {
+		width: 50px;
+		border-radius: 50%;
+	}
+}
+
+.logout {
+	transition: all 0.5s;
+	&:hover {
+		color: $blueColor;
+	}
+}
+
+.userProfile {
+	display: flex;
+	flex-direction: column;
+}
+
+.userHeader, .userIcons {
+	padding: 20px;
+	margin: auto;
+	text-align: center;
+}
+
+.userImage {
+	width: 200px;
+	border-radius: 50%;
+}
+
+.optionsNav {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	a {
+		margin: 20px;
+	}
+	i {
+		font-size: 2.4rem;
+		transition: all 0.5s;
+		&:hover {
+			color: $blueColor;
+			transform: translateY(-5px);
+		}
+	}
+}
+
+// /* Portrait tablet and small desktops */
+@media (max-width: 940px) {
+	.loggedInHeader {
+		padding: 25px;
+	}
+}
+
+// /* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+
+}
+
+// /* Landscape phones and down */
+@media (max-width: 480px) {
+	.loggedInHeader {
+		padding-bottom: 5px;
+	}
+	.optionsNav {
+		justify-content: space-around;
+		p {
+			display: none;
+		}
+	}
+}

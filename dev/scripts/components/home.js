@@ -1,7 +1,6 @@
 import React from 'react';
 import firebase, { auth, database, provider, dbRef } from '../firebase.js';
 import Instructions from './instructions.js';
-import Time from 'react-time';
 
 export default class Home extends React.Component {
 	constructor() {

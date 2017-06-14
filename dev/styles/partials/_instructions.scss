@@ -1,4 +1,5 @@
 .instructions {
+	background: transparent;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -6,6 +7,11 @@
 	bottom: 0;
 	display: flex;
 	margin: auto;
+}
+
+.getStarted {
+	padding-bottom: 8px;
+	border-bottom: 5px solid $blueColor;
 }
 
 .instruction {
@@ -16,14 +22,15 @@
 	flex-direction: column;
 	align-items: center;
 	padding: 25px;
-	background: linear-gradient(to bottom, rgba($purpleColor, 0.8), rgba($purpleColor, 0.7), rgba($blueColor, 0.7), rgba($blueColor, 0.8));
+	background: linear-gradient(to bottom, rgba($purpleColor, 1), rgba($purpleColor, 0.9), rgba($purpleColor, 0.8), rgba($purpleColor, 0.7));
 	border-radius: 5px;
-	color: black;
-	h2 {
-		text-shadow: 1px 1px 1px darken($purpleColor, 0.3);
+	color: white;
+	h2, h3 {
+		color: white;
+		text-shadow: 1px 1px 1px darken($blueColor, 0.3);
 	}
-	h3 {
-		color: $purpleColor;
+	img {
+		max-width: 100%;
 	}
 	button {
 		@include buttonCustom($blueColor, $baseFont);
@@ -31,5 +38,12 @@
 		width: 50%;
 		outline: none;
 		// @include buttonAfter();
+	}
+	i {
+		font-size: 2.4rem;
+		color: $blueColor;
+		&:hover {
+			cursor: pointer;
+		}
 	}
 }

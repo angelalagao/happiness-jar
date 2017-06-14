@@ -9,7 +9,8 @@ export default class Instructions extends React.Component {
 			instructions: [
 			{
 				step: 1,
-				content: `Write out as many happy notes as you want for each day 😃`
+				content: `Write out as many happy notes as you want for each day 😃`,
+				image: '../assets/happiness.jpg'
 			},
 			{
 				step: 2,
@@ -31,7 +32,7 @@ export default class Instructions extends React.Component {
 	render() {
 		return (
 			<div className="instruction">
-				<h2>How to Get Started:</h2>
+				<h2>How to <span className="getStarted">Get Started:</span></h2>
 				<Instruction 
 					step={this.state.instructions[this.state.currentStep].step} 
 					content={this.state.instructions[this.state.currentStep].content} />
@@ -39,9 +40,7 @@ export default class Instructions extends React.Component {
 				<button onClick={this.props.finish}>
 					<i className="fa fa-check" aria-hidden="true"></i>
 				</button> :
-				<button onClick={this.changeStep}>
-					<i className="fa fa-step-forward" aria-hidden="true"></i>
-				</button>}
+					<i onClick={this.changeStep} className="fa fa-step-forward" aria-hidden="true"></i>}
 			</div>
 		)
 	}

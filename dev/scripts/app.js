@@ -32,6 +32,8 @@ import Favourites from './components/favourites.js';
 import Instructions from './components/instructions.js';
 import Home from './components/home.js'
 import _ from 'underscore';
+import Time from 'react-time';
+
 
 // Array.from(this.state.array);
 // Object.create(this.state.object);
@@ -80,6 +82,7 @@ class App extends React.Component {
 			});
 	}
 	render() {
+		let now = new Date();
 		const showHome = () => {
 			if (this.state.loggedIn) {
 				return (
@@ -89,11 +92,14 @@ class App extends React.Component {
 								<h1><span className="happiness">Happiness</span> Jar</h1>
 							</Link>
 							<div className="loggedInHeader__nav">
-								<img src={this.state.user.photoURL} alt=""/>
-								<Link to="/">
-									<button onClick={this.logout}>
-										Log Out <i className="fa fa-sign-out" aria-hidden="true"></i>
-									</button>
+								<p><Time value={now} format="MM/DD/YYYY"/></p>
+								<Link to={`/${this.state.userId}`}>
+									<img src={this.state.user.photoURL} alt=""/>
+								</Link>
+								<Link to="/" onClick={this.logout}>
+									<div className="logout">
+										<p>Log Out</p>
+									</div>
 								</Link>
 							</div>
 						</header>
