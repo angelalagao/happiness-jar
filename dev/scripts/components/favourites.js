@@ -13,9 +13,9 @@ export default class Favourites extends React.Component {
 		return	(
 			<div className="happinessJar">
 				<h2>Your <span className="notesTitle">Favourites</span></h2>
-				{this.state.favourites.map((favourite, i) => {
-					return (
-						<ul className="happyNotes" key={`note-${favourite.id}`}>
+				<ul className="happyNotes">
+					{this.state.favourites.map((favourite, i) => {
+						return (
 							<li className="happyNote" key={favourite.id + i}>
 								<h3>{favourite.title}</h3>
 								<p>{favourite.date.replace('GMT-0400 (EDT)', '')}</p>
@@ -24,9 +24,9 @@ export default class Favourites extends React.Component {
 									<p>{favourite.happyNote}</p>
 								</div>
 							</li>
-						</ul>
-					)
-				})}
+						)
+					})}
+				</ul>
 			</div>
 		)
 	}
@@ -39,7 +39,7 @@ export default class Favourites extends React.Component {
 			});
 			window.newFavourites = newFavourites;
 			this.setState({
-				favourites: newFavourites
+				favourites: newFavourites.reverse()
 			})
 		});
 	}

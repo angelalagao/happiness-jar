@@ -62,8 +62,8 @@ export default class OpenNotes extends React.Component {
 		const userRef = firebase.database().ref(this.props.match.params.userId);
 		userRef.off('value');
 	}
-	addToFavourites(e) {
-		const userRef = firebase.database().ref(this.props.match.params.userId).child(e.target.value);
+	addToFavourites(key) {
+		const userRef = firebase.database().ref(this.props.match.params.userId).child(key);
 		userRef.update({
 			favourited: true
 		});
@@ -90,9 +90,11 @@ export default class OpenNotes extends React.Component {
 													<img src={singleNote.currentImage} alt=""/>
 													<p className="noteText">{singleNote.currentHappyNote}</p>
 												</div>
-												<button 
-													value={singleNote.key} >
-													<i onClick={this.addToFavourites} className="fa fa-thumb-tack" aria-hidden="true"></i>
+												<button>
+													<i 	name="pinNote"
+														onClick={() => this.addToFavourites(singleNote.key)} 
+														className="fa fa-thumb-tack" aria-hidden="true">
+													</i>
 												</button>
 											</li>
 										)
