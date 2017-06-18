@@ -21,7 +21,6 @@ export default class HappyNote extends React.Component {
 	}
 	uploadPhoto(e) {
 		e.preventDefault();
-		// need refactoring
 		const file = this.file.files[0];
 		// only store to firebase if image size is < 2mb
 		if (file.size < 2048576) {
@@ -50,7 +49,6 @@ export default class HappyNote extends React.Component {
 	handleSubmit(e) {
 		e.preventDefault();
 		const newDate = new Date();
-		// how to pass in the user object from app component to get the userId
 		const userRef = firebase.database().ref(this.props.match.params.userId);
 		userRef
 			.push({

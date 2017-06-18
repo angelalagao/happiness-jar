@@ -73,6 +73,10 @@ a {
 	h1 {
 		font-size: 3.2rem;
 	}
+
+	h1, h2, h3 {
+		font-family: $baseFont;
+	}
 }
 
 

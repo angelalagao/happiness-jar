@@ -1,11 +1,6 @@
 
 // Home page should have a login button 
-	// Login will lead to a view where user can enter their email and password if already an existing user
-	// Create account will lead to view where user can input email, password and confirm password
-// First user view will have an instructions slider view pop up including the following:
-// Step 1: Write out as many happy notes as you want for the day! with 'next' button that will take the user to the next step
-// Step 2: View your happy notes anytime you're feeling sad :( with 'next' button that will take the user to the next step
-// Step 3: Go and be happy! with 'get started' button that will take you to the home page
+// First user view will have an instructions modal view pop up including the following:
 // If user already has an account and logs in it will directly take them to the home page
 // On the home page:
 // Create two buttons or links in the App component that will send the user to "Write a note" view and "View Notes" view
@@ -14,7 +9,7 @@
 // Confirmation that note was entered and data was stored in firebase
 // The "View Notes" view should contain the individual notes the user submitted
 
-// How to get the users date and tracking it so that by the end of the week, the user can get a 'final review' of all of the happy notes they submitted
+// Get the users date and tracking it so that by the end of the week, the user can get a 'final review' of all of the happy notes they submitted
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -33,7 +28,6 @@ import Instructions from './components/instructions.js';
 import Home from './components/home.js'
 import _ from 'underscore';
 import Time from 'react-time';
-
 
 // Array.from(this.state.array);
 // Object.create(this.state.object);
