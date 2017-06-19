@@ -37,17 +37,18 @@
 
 @mixin modal () {
 	text-align: center;
-	width: 400px;
+	width: 500px;
+	height: 300px;
 	margin: auto;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 	padding: 25px;
-	background: linear-gradient(to bottom, rgba($purpleColor, 0.8), rgba($purpleColor, 0.7), rgba($blueColor, 0.7), rgba($blueColor, 0.8));
+	background: linear-gradient(0deg, rgba($purpleColor, 0.8) 0%, rgba($blueColor, 0.8) 100%);
 	border-radius: 5px;
-	color: black;
 	button {
-		@include buttonCustom($purpleColor, $baseFont);
+		@include buttonCustom($blueColor, $baseFont);
 		letter-spacing: 1.8px;
 		width: 50%;
 		outline: none;

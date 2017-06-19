@@ -110,19 +110,19 @@ class App extends React.Component {
 							/>
 							<div className="optionsNav">
 								<Link to={`/writeNote/${this.state.userId}`}>
-									<div>
+									<div className="nav__links">
 										<i className="fa fa-pencil" aria-hidden="true"></i>
 										<p>Write a Happy Note</p>
 									</div>
 								</Link>
 								<Link to={`/openNotes/${this.state.userId}`}>
-									<div>
+									<div className="nav__links">
 										<i className="fa fa-unlock-alt" aria-hidden="true"></i>
 										<p>Open Happiness Jar</p>
 									</div>
 								</Link>
 								<Link to={`/favourites/${this.state.userId}`}>
-									<div>
+									<div className="nav__links">
 										<i className="fa fa-thumb-tack" aria-hidden="true"></i>
 										<p>Pinned Happy Notes</p>
 									</div>

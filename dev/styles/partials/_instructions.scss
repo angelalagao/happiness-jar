@@ -17,6 +17,7 @@
 .instruction {
 	text-align: center;
 	width: 400px;
+	height: 300px;
 	margin: auto;
 	display: flex;
 	flex-direction: column;
@@ -40,10 +41,12 @@
 		// @include buttonAfter();
 	}
 	i {
-		font-size: 2.4rem;
+		font-size: 4rem;
 		color: $blueColor;
+		transition: all 0.5s;
 		&:hover {
 			cursor: pointer;
+			color: white;
 		}
 	}
 }

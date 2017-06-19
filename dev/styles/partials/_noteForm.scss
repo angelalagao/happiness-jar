@@ -41,6 +41,7 @@
 	@include modal();
 	p {
 		@include secondaryHeader(1.8rem, $baseFont);
+		color: white;
 		text-shadow: 1px 1px 1px darken($purpleColor, 0.3);
 	}
 }

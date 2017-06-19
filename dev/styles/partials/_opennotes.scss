@@ -3,10 +3,6 @@
 	padding-bottom: 4px;
 }
 
-.week {
-
-}
-
 .weekOf {
 	color: $purpleColor;
 }
@@ -21,17 +17,21 @@
 .happyNote {
 	display: flex;
 	flex-direction: column;
-	border-radius: 2px;
-	box-shadow: 1px 1px 7px 0px darken($purpleColor, 5);
-	padding: 20px;
-	margin: 10px;
-	width: calc(33.3% - 20px);
+	border-radius: 3px;
+	box-shadow: 1px 1px 7px 0px #b0b0b3;
+	padding: 30px;
+	margin: 20px;
+	width: calc(33.3% - 40px);
 	img {
 		max-width: 100%;
 	}
 	i {
-		font-size: 2.4rem;
+		font-size: 3rem;
 		color: $purpleColor;
+		transition: all 0.5s;
+		&:hover {
+			color: $blueColor;
+		}
 	}
 	button {
 		align-self: center;
@@ -51,12 +51,15 @@
 		margin: 20px;
 	}
 	.happyNote {
-		width: calc(50% - 20px);
+		width: calc(50% - 40px);
 	}
 }
 
 // /* Landscape phone to portrait tablet */
 @media (max-width: 768px) {
+	.happinessJar {
+		margin: 10px;
+	}
 	.happyNotes {
 		justify-content: center;
 	}
@@ -64,6 +67,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
+		margin: 10px;
 		width: 80%;
 		button {
 			align-self: flex-end;
@@ -89,6 +93,7 @@
 @media (max-width: 480px) {
 	.happyNote {
 		width: 95%;
+		padding: 20px;
 	}
 	.noteContent {
 		flex-direction: column;

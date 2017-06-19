@@ -132,9 +132,11 @@ export default class HappyNote extends React.Component {
 					</form>
 					<div className="notePreview">
 						<h2>Live Preview</h2>
-						<h1>{this.state.currentTitle}</h1>
-						<img src={this.state.currentImage} alt=""/>
-						<p>{this.state.currentHappyNote}</p>
+						<div className="notePreview__content">
+							<h1>{this.state.currentTitle}</h1>
+							<img src={this.state.currentImage} alt=""/>
+							<p>{this.state.currentHappyNote}</p>
+						</div>
 					</div>
 				</div>
 				{showSubmitted()}
