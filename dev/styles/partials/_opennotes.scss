@@ -45,6 +45,11 @@
 	}
 }
 
+.noteOptions {
+	display: flex;
+	justify-content: center;
+}
+
 // /* Portrait tablet and small desktops */
 @media (max-width: 940px) {
 	.happinessJar {

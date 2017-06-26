@@ -22,6 +22,7 @@ export default class OpenNotes extends React.Component {
 			orderedHappyNotes: [],
 		}
 		this.addToFavourites = this.addToFavourites.bind(this);
+		this.removeNote = this.removeNote.bind(this);
 	}
 	componentDidMount() {
 		const userRef = firebase.database().ref(this.props.match.params.userId);
@@ -68,6 +69,10 @@ export default class OpenNotes extends React.Component {
 			favourited: true
 		});
 	}
+	removeNote(key) {
+		const userRef = firebase.database().ref(`${this.props.match.params.userId}/${key}`);
+		userRef.remove();
+	}
 	// need to show the user the week of notes they are reviewing
 	render() {
 		return (
@@ -90,12 +95,20 @@ export default class OpenNotes extends React.Component {
 													<img src={singleNote.currentImage} alt=""/>
 													<p className="noteText">{singleNote.currentHappyNote}</p>
 												</div>
-												<button>
-													<i 	name="pinNote"
-														onClick={() => this.addToFavourites(singleNote.key)} 
-														className="fa fa-thumb-tack" aria-hidden="true">
-													</i>
-												</button>
+												<div className="noteOptions">
+													<button>
+														<i 	name="pinNote"
+															onClick={() => this.addToFavourites(singleNote.key)} 
+															className="fa fa-thumb-tack" aria-hidden="true">
+														</i>
+													</button>
+													<button>
+														<i 
+															onClick={() => this.removeNote(singleNote.key)}
+															className="fa fa-trash-o" aria-hidden="true">
+														</i>
+													</button>
+												</div>
 											</li>
 										)
 									})}
